@@ -1,6 +1,6 @@
 {
-  "name": "apache-dubbo-js",
-  "version": "3.0.0-rc6",
+  "name": "apache-dubbo2-js",
+  "version": "3.0.0-rc7",
   "main": "./es7/index.js",
   "types": "./es7/typings/index.d.ts",
   "license": "Apache Licence 2.0",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/dubbo-js"
+    "url": "https://github.com/Ewell-FE/dubbo-js"
   },
   "dependencies": {
     "debug": "3.1.0",

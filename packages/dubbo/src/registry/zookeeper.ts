@@ -20,11 +20,7 @@ import ip from 'ip';
 import zookeeper, {State} from 'node-zookeeper-client';
 import qs from 'querystring';
 import DubboUrl from '../dubbo-url';
-import {
-  ZookeeperDisconnectedError,
-  ZookeeperExpiredError,
-  ZookeeperTimeoutError,
-} from '../err';
+import {ZookeeperDisconnectedError, ZookeeperExpiredError} from '../err';
 import {go} from '../go';
 import {
   ICreateConsumerParam,
@@ -198,11 +194,14 @@ export class ZkRegistry extends Registry<IZkClientProps & IDubboRegistryProps> {
     const timeId = setTimeout(() => {
       log(`Could not connect zk ${register}， time out`);
       this._client.close();
-      callback(
-        new ZookeeperTimeoutError(
-          `ZooKeeper was connected ${register} time out. `,
-        ),
-      );
+      setTimeout(() => {
+        this._reconnect();
+      }, 6000);
+      // callback(
+      //   new ZookeeperTimeoutError(
+      //     `ZooKeeper was connected ${register} time out. `,
+      //   ),
+      // );
     }, 30 * 1000);
 
     this._client.once('connected', () => {
